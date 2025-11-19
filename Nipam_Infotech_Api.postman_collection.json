@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "2cf1e3ae-872e-470d-9655-20a143df9a4b",
+		"name": "Nipam_Infotech_Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49598091",
+		"_collection_link": "https://pritibokhare00-787446.postman.co/workspace/myworkspace~da318662-dda9-42bf-97fd-c2e1437f82f8/collection/49598091-2cf1e3ae-872e-470d-9655-20a143df9a4b?action=share&source=collection_link&creator=49598091"
+	},
+	"item": [
+		{
+			"name": "Create Customer",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.test(\"Customer should be added successfully\", () => {\r",
+							"  pm.expect(pm.response.json().message).to.include(\"success\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Customer added successfully\", function () {\r",
+							"    let json = pm.response.json();\r",
+							"    pm.expect(json.message).to.include(\"Customer added\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "{{userid}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"customerName\": \"priti bokhare\"\r\n  \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}",
+					"host": [
+						"{{base_url}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginWithValid",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.test(\"Status 200\", () => {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userid\": \"{{userid}}\",\r\n  \"password\": \"{{password}}\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}\n",
+					"host": [
+						"{{base_url}}\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LoginWithInvalid",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userid\": \"9519519519\",\r\n  \"password\": \"xyz\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{base_url}}\n",
+					"host": [
+						"{{base_url}}\n"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
